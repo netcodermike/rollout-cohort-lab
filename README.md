@@ -35,7 +35,7 @@ Cohorts hashes each flag/subject pair with SHA-256 into one of 10,000 buckets. P
 | `policy` | JavaScript | Public demo API, `POST /evaluate` |
 | `cohorts` | Python | Internal service, `POST /bucket` |
 
-The two services exchange JSON over HTTP. Each has a `GET /health` endpoint for process readiness. A gateway request returns HTTP 502 when its dependency is unavailable or fails unexpectedly. Invalid input returns HTTP 400. Domain conflicts return HTTP 409 where supported.
+The two services exchange JSON over HTTP. Each has a `GET /health` endpoint for process readiness. Compose starts the API after the internal service passes its readiness probe. A gateway request returns HTTP 502 when its dependency is unavailable or fails unexpectedly. Invalid input returns HTTP 400. Domain conflicts return HTTP 409 where supported.
 
 ## API example
 

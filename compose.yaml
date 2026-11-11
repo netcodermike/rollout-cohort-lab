@@ -9,9 +9,15 @@ services:
       OPERATION_PATH: /evaluate
       UPSTREAM_URL: http://cohorts:8081/bucket
     depends_on:
-      - cohorts
+      cohorts:
+        condition: service_healthy
   cohorts:
     build: ./services/cohorts
+    healthcheck:
+      test: ["CMD", "python", "-c", "from urllib.request import urlopen; urlopen('http://127.0.0.1:8081/health', timeout=1).close()"]
+      interval: 1s
+      timeout: 2s
+      retries: 20
     environment:
       HOST: 0.0.0.0
       PORT: "8081"

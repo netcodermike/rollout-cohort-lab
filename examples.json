@@ -1,0 +1,57 @@
+{
+  "slug": "rollout-cohort-lab",
+  "gateway": [
+    "policy",
+    "/evaluate",
+    "JavaScript"
+  ],
+  "worker": [
+    "cohorts",
+    "/bucket",
+    "Python"
+  ],
+  "cases": [
+    [
+      "Disabled rollout with an override",
+      {
+        "flag": "new-search",
+        "percent": 0,
+        "subjects": [
+          "ana",
+          "bo"
+        ],
+        "overrides": {
+          "bo": true
+        }
+      },
+      200,
+      {
+        "enabled": [
+          "bo"
+        ],
+        "disabled": [
+          "ana"
+        ]
+      }
+    ],
+    [
+      "Full rollout uses the same buckets",
+      {
+        "flag": "new-search",
+        "percent": 100,
+        "subjects": [
+          "ana",
+          "bo"
+        ]
+      },
+      200,
+      {
+        "enabled": [
+          "ana",
+          "bo"
+        ],
+        "disabled": []
+      }
+    ]
+  ]
+}

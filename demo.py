@@ -41,7 +41,7 @@ def wait_ready(base, process=None):
         try:
             if request(base + "/health")[0] == 200:
                 return
-        except (URLError, TimeoutError):
+        except (URLError, ConnectionError, TimeoutError):
             pass
         time.sleep(0.2)
     raise TimeoutError(f"Service did not start at {base}")
